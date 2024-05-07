@@ -1,31 +1,92 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:neobis_flutter_auth/core/app/utils/validation.dart';
 
 part 'validation_event.dart';
 part 'validation_state.dart';
-part 'validation_bloc.freezed.dart';
 
 class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with PasswordValidation {
-  ValidationBloc() : super(const ValidationState.loading()) {
-    on<_CheckEmail>(_checkPassword);
+  ValidationBloc() : super(ValidationState(ValidationModel.initial())) {
+    on<ValidationPassword>(_validationPassword);
+    on<ValidationEmail>(_validationEmail);
+    on<ValidationLogin>(_validationLogin);
+    on<ValidationPasswordRepeat>(_validationPasswordRepeat);
+    on<CheckValidation>(_validationCheck);
   }
 
-  void _checkPassword(_CheckEmail event, Emitter<ValidationState> emit) {
-    emit(const ValidationState.loading());
-    PasswordValidation validation = PasswordValidation();
-    String password = event.password;
-    bool specChar = validation.hasSpecialChar(password);
-    bool lenght = validation.isValidLength(password);
-    bool number = validation.hasDigit(password);
-    bool upperCase = validation.hasAlphabetic(password);
-    List<bool> validationList = [lenght, number, specChar, upperCase];
-    GlobalKey key = event.formKey;
-    bool buttonStatus = validationList.every((element) => element == true && key == true);
-    print(buttonStatus);
+  void _validationCheck(
+    CheckValidation event,
+    Emitter<ValidationState> emit,
+  ) {}
 
-    emit(ValidationState.validationPassword(validationPassword: validationList, activeButton: buttonStatus));
+  void _validationPasswordRepeat(
+    ValidationPasswordRepeat event,
+    Emitter<ValidationState> emit,
+  ) {
+    final password = event.passwordRepeat;
+    String firstPassword = state.validationModel.password;
+    final similar = passwordsValid(
+      password,
+      firstPassword,
+    );
+    emit(
+      ValidationState(
+        state.validationModel.copyWith(
+          passwordSimilar: similar,
+        ),
+      ),
+    );
+  }
+
+  void _validationLogin(
+    ValidationLogin event,
+    Emitter<ValidationState> emit,
+  ) {
+    final login = event.login;
+    final boolLogin = login.isNotEmpty;
+
+    emit(
+      ValidationState(
+        state.validationModel.copyWith(
+          login: boolLogin,
+        ),
+      ),
+    );
+  }
+
+  void _validationEmail(
+    ValidationEmail event,
+    Emitter<ValidationState> emit,
+  ) {
+    final email = event.email;
+    final boolEmail = emailValidation(email);
+    emit(
+      ValidationState(
+        state.validationModel.copyWith(
+          email: boolEmail,
+        ),
+      ),
+    );
+  }
+
+  void _validationPassword(
+    ValidationPassword event,
+    Emitter<ValidationState> emit,
+  ) {
+    final password = event.password;
+    final specChar = hasSpecialChar(password);
+    final lenght = isValidLength(password);
+    final number = hasDigit(password);
+    final upperCase = hasAlphabetic(password);
+    emit(
+      ValidationState(
+        state.validationModel.copyWith(
+          lenght: lenght,
+          number: number,
+          specChar: specChar,
+          upperCase: upperCase,
+          password: password,
+        ),
+      ),
+    );
   }
 }

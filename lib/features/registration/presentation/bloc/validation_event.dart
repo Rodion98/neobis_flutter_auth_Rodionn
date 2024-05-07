@@ -1,7 +1,28 @@
 part of 'validation_bloc.dart';
 
-@freezed
-class ValidationEvent with _$ValidationEvent {
-  const factory ValidationEvent.checkPassword({required String password, required GlobalKey<FormState> formKey}) =
-      _CheckEmail;
+abstract class ValidationEvent {}
+
+class ValidationPassword extends ValidationEvent {
+  final String password;
+
+  ValidationPassword({required this.password});
+}
+
+class ValidationEmail extends ValidationEvent {
+  final String email;
+  ValidationEmail({required this.email});
+}
+
+class ValidationLogin extends ValidationEvent {
+  final String login;
+  ValidationLogin({required this.login});
+}
+
+class ValidationPasswordRepeat extends ValidationEvent {
+  final String passwordRepeat;
+  ValidationPasswordRepeat({required this.passwordRepeat});
+}
+
+class CheckValidation extends ValidationEvent {
+  CheckValidation();
 }

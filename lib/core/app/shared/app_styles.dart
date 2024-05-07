@@ -14,6 +14,13 @@ class AppTextStyle {
       fontWeight: FontWeight.w500,
       height: 1.5);
 
+  static const mplus1p16Button = TextStyle(
+    color: AppColors.white,
+    fontFamily: FontFamily.mplus1p,
+    fontWeight: FontWeight.w500,
+    height: 1.5,
+  );
+
   static const mplus1p20 = TextStyle(
       fontSize: 20,
       color: AppColors.greyExtraDark,

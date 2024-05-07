@@ -7,8 +7,13 @@ class MyPasswordTextFieldWidget extends StatefulWidget {
   final bool obscure;
   final void Function(String)? onChanged;
 
-  const MyPasswordTextFieldWidget(
-      {super.key, required this.hintText, required this.controller, required this.obscure, required this.onChanged});
+  const MyPasswordTextFieldWidget({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    required this.obscure,
+    required this.onChanged,
+  });
 
   @override
   State<MyPasswordTextFieldWidget> createState() => _MyPasswordTextFieldWidgetState();

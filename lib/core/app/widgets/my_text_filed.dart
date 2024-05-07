@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
 
-class MyTextFieldWidget extends StatefulWidget {
+class MyTextFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final String hintText;
   final TextEditingController controller;
-  final bool obscure;
+  bool obscure;
   final String? error;
-  final Function(String) onChanged;
+  Function(String)? onChanged;
 
-  const MyTextFieldWidget({
+  MyTextFieldWidget({
     super.key,
     required this.hintText,
     required this.controller,
     required this.obscure,
     this.error,
     this.validator,
-    required this.onChanged,
+    this.onChanged,
   });
 
-  @override
-  State<MyTextFieldWidget> createState() => _MyTextFieldWidgetState();
-}
+//   @override
+//   State<MyTextFieldWidget> createState() => _MyTextFieldWidgetState();
+// }
 
-class _MyTextFieldWidgetState extends State<MyTextFieldWidget> {
-  bool _obscureText = true;
+// class _MyTextFieldWidgetState extends State<MyTextFieldWidget> {
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: widget.onChanged,
+      onChanged: onChanged,
       decoration: InputDecoration(
         enabled: true,
         enabledBorder: OutlineInputBorder(
@@ -42,27 +42,36 @@ class _MyTextFieldWidgetState extends State<MyTextFieldWidget> {
           borderRadius: BorderRadius.circular(AppProps.kMediumBorderRadius),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: AppProps.kPageMargin),
-        errorText: widget.error,
-        hintText: widget.hintText,
+        errorText: error,
+        hintText: hintText,
         hintStyle: AppTextStyle.mplus1p16,
-        suffixIcon: widget.obscure
+        suffixIcon: obscure
             ? IconButton(
                 icon: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                  obscure ? Icons.visibility : Icons.visibility_off,
                   color: Colors.grey,
                 ),
                 onPressed: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
+                  // setState(() {
+                  //   widget.obscure = !widget.obscure;
+                  // });
                 },
               )
-            : const SizedBox(),
+            : IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  // setState(() {
+                  //   widget.obscure = !widget.obscure;
+                  // });
+                },
+              ),
       ),
-      validator: widget.validator,
-      // onChanged: widget.onChanged,
-      controller: widget.controller,
-      obscureText: widget.obscure ? _obscureText : false,
+      validator: validator,
+      controller: controller,
+      obscureText: obscure,
       obscuringCharacter: '*',
     );
   }
