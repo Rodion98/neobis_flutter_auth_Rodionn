@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 36
+/// Strings: 37
 ///
-/// Built on 2024-04-29 at 17:18 UTC
+/// Built on 2024-05-10 at 18:04 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -174,12 +174,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get necessaryField => 'Обязательное поле';
 	String get badSymbols => ' Недопустимые символы';
 	String get passwordNotSimilar => 'Пароли не совпадают';
-	String get sendEmail => 'Выслали письмо со ссылкой для завершения регистрации на';
-	String get spam => 'Если письмо не пришло, не спеши ждать совиную почту - лучше проверь ящик “Спам”';
+	String get sendEmail => 'Выслали письмо со ссылкой\nдля завершения регистрации\nна ';
+	String get spam => 'Если письмо не пришло, не спеши\nждать совиную почту - лучше проверь\nящик “Спам”';
 	String get emailNotCome => 'Письмо не пришло';
 	String get resendEmail => 'Мы выслали еще одно письмо на указанную тобой почту';
 	String get spam2 => 'Не забудь проверить  ящик “Спам”!11!!!!';
 	String get understand => 'Понятно!!1!';
+	String get owl => ' (´｡• ω •｡`)';
 	String get exit2 => 'Точно выйти?';
 	String get yes => 'Да, точно';
 	String get no => 'Нет, остаться';
@@ -218,12 +219,13 @@ extension on Translations {
 			case 'necessaryField': return 'Обязательное поле';
 			case 'badSymbols': return ' Недопустимые символы';
 			case 'passwordNotSimilar': return 'Пароли не совпадают';
-			case 'sendEmail': return 'Выслали письмо со ссылкой для завершения регистрации на';
-			case 'spam': return 'Если письмо не пришло, не спеши ждать совиную почту - лучше проверь ящик “Спам”';
+			case 'sendEmail': return 'Выслали письмо со ссылкой\nдля завершения регистрации\nна ';
+			case 'spam': return 'Если письмо не пришло, не спеши\nждать совиную почту - лучше проверь\nящик “Спам”';
 			case 'emailNotCome': return 'Письмо не пришло';
 			case 'resendEmail': return 'Мы выслали еще одно письмо на указанную тобой почту';
 			case 'spam2': return 'Не забудь проверить  ящик “Спам”!11!!!!';
 			case 'understand': return 'Понятно!!1!';
+			case 'owl': return ' (´｡• ω •｡`)';
 			case 'exit2': return 'Точно выйти?';
 			case 'yes': return 'Да, точно';
 			case 'no': return 'Нет, остаться';

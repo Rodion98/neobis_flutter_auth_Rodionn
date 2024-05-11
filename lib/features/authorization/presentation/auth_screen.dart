@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
 import 'package:neobis_flutter_auth/core/app/router/router.dart';
-import 'package:neobis_flutter_auth/core/app/widgets/my_elevated_button.dart';
-import 'package:neobis_flutter_auth/core/app/widgets/my_text_filed.dart';
-import 'package:neobis_flutter_auth/features/authorization/presentation/widgets/my_text_button.dart';
+import 'package:neobis_flutter_auth/features/authorization/presentation/bloc/authorization_bloc.dart';
 import 'package:neobis_flutter_auth/gen/assets.gen.dart';
 import 'package:neobis_flutter_auth/gen/strings.g.dart';
 
@@ -17,12 +16,13 @@ class AuthorizationScreen extends StatefulWidget {
 }
 
 class _AuthorizationScreenState extends State<AuthorizationScreen> {
-  final email = TextEditingController();
+  final login = TextEditingController();
   final password = TextEditingController();
+  bool isObcsure = true;
 
   @override
   void dispose() {
-    email.dispose();
+    login.dispose();
     password.dispose();
     super.dispose();
   }
@@ -50,9 +50,11 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
                   const SizedBox(height: 28),
                   _buildEmailField(),
                   const SizedBox(height: 14),
-                  _buildPasswordField(),
+                  _buildPasswordField(isObcsure),
                   const SizedBox(height: 28),
-                  _buildEnterButton(context),
+                  _buildEnterButton(
+                    context,
+                  ),
                   const SizedBox(height: 28),
                   _buildRegistrationButton(context),
                 ],
@@ -65,16 +67,30 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
   MyTextButtonWidget _buildRegistrationButton(BuildContext context) {
     return MyTextButtonWidget(
       onTap: () {
-        AutoRouter.of(context).push(const RegistrationRoute());
+        AutoRouter.of(context).push(
+          const RegistrationRoute(),
+        );
       },
       text: t.noAccount,
     );
   }
 
-  MyElevatedButtonWidget _buildEnterButton(BuildContext context) {
+  MyElevatedButtonWidget _buildEnterButton(
+    BuildContext context,
+  ) {
     return MyElevatedButtonWidget(
       onTap: () {
-        AutoRouter.of(context).replace(const MainRoute());
+        final String enteredPassword = password.text;
+        final String enteredUsername = login.text;
+        context.read<AuthorizationBloc>().add(
+              AuthorizationEvent.login(
+                password: enteredPassword,
+                login: enteredUsername,
+              ),
+            );
+        // AutoRouter.of(context).replace(
+        //   const MainRoute(),
+        // );
       },
       // => showSnackBarFun(context)
 
@@ -82,19 +98,22 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
     );
   }
 
-  MyTextFieldWidget _buildPasswordField() {
+  MyTextFieldWidget _buildPasswordField(
+    bool isObcsure,
+  ) {
     return MyTextFieldWidget(
       onChanged: (val) {},
       controller: password,
       hintText: t.inputPassword,
-      obscure: true,
+      obscure: isObcsure,
+      suffixIcon: _buildSuffixIcon,
     );
   }
 
   MyTextFieldWidget _buildEmailField() {
     return MyTextFieldWidget(
       onChanged: (val) {},
-      controller: email,
+      controller: login,
       hintText: t.inputLogin,
       obscure: false,
     );
@@ -129,5 +148,19 @@ class _AuthorizationScreenState extends State<AuthorizationScreen> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  IconButton get _buildSuffixIcon {
+    return IconButton(
+      icon: Icon(
+        !isObcsure ? Icons.remove_red_eye_outlined : Icons.remove_red_eye,
+        color: AppColors.greyExtraDark,
+      ),
+      onPressed: () {
+        setState(() {
+          isObcsure = !isObcsure;
+        });
+      },
+    );
   }
 }

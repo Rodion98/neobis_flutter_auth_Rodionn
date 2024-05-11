@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:neobis_flutter_auth/core/app/io_ui.dart';
+part of io_ui;
 
 class MyElevatedButtonWidget extends StatelessWidget {
   final VoidCallback? onTap;
@@ -15,8 +14,12 @@ class MyElevatedButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.disabled)) {
+        backgroundColor: MaterialStateProperty.resolveWith<Color>((
+          states,
+        ) {
+          if (states.contains(
+            MaterialState.disabled,
+          )) {
             return AppColors.buttonColorLight;
           }
           return AppColors.buttonColorDark;
@@ -38,6 +41,9 @@ class MyElevatedButtonWidget extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         text,
+        style: TextStyle(
+          color: onTap != null ? AppColors.white : AppColors.greyMediumDark,
+        ),
       ),
     );
   }

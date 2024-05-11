@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
 import 'package:neobis_flutter_auth/core/app/router/router.dart';
-import 'package:neobis_flutter_auth/features/authorization/presentation/widgets/my_text_button.dart';
 import 'package:neobis_flutter_auth/gen/assets.gen.dart';
 import 'package:neobis_flutter_auth/gen/strings.g.dart';
 

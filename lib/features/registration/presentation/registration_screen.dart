@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
 import 'package:neobis_flutter_auth/core/app/router/router.dart';
-import 'package:neobis_flutter_auth/core/app/widgets/my_elevated_button.dart';
-import 'package:neobis_flutter_auth/core/app/widgets/my_text_filed.dart';
+import 'package:neobis_flutter_auth/features/registration/data/models/registration_model/registration_model.dart';
 import 'package:neobis_flutter_auth/features/registration/presentation/bloc/validation_bloc.dart';
 import 'package:neobis_flutter_auth/features/registration/presentation/widgets/password_validation_widget.dart';
 import 'package:neobis_flutter_auth/gen/strings.g.dart';
@@ -36,22 +35,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            t.registration,
-            style: AppTextStyle.mplus1p16.copyWith(color: AppColors.buttonColorDark),
-          ),
-        ),
-      ),
+      appBar: const AppBarWidget(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppProps.kPageMargin),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppProps.kPageMargin,
+        ),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40,
+                ),
                 child: Center(
                   child: Text(
                     t.createAccount,
@@ -82,17 +78,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ? MyElevatedButtonWidget(
                 text: t.continueText,
                 onTap: () {
-                  AutoRouter.of(context).replace(const MainRoute());
+                  final registrationModel = RegistrationModel(
+                    username: state.validationModel.loginString,
+                    email: state.validationModel.emailString,
+                    password: state.validationModel.password,
+                    passwordConfirm: state.validationModel.passwordRepeat,
+                  );
+
+                  context.read<ValidationBloc>().add(
+                        RegistrationEvent(
+                          registrationModel: registrationModel,
+                        ),
+                      );
+                  AutoRouter.of(context).replace(
+                    ConfirmationRoute(
+                      email: state.validationModel.emailString,
+                      registrationModel: registrationModel,
+                    ),
+                  );
                 },
               )
             : MyElevatedButtonWidget(
                 text: t.continueText,
-              ); // Or any other default Widget
+              );
       },
     );
   }
 
-  Column _buildPasswordField(BuildContext context) {
+  Column _buildPasswordField(
+    BuildContext context,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -113,7 +128,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   MyTextFieldWidget _buildRepeatPasswordField() {
     return MyTextFieldWidget(
       onChanged: (value) {
-        context.read<ValidationBloc>().add(ValidationPasswordRepeat(passwordRepeat: value));
+        context.read<ValidationBloc>().add(
+              ValidationPasswordRepeat(
+                passwordRepeat: value,
+              ),
+            );
       },
       hintText: t.repeatPassword,
       controller: repeatPassword,
@@ -128,29 +147,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  MyTextFieldWidget _buildLoginTextField(BuildContext context) {
+  MyTextFieldWidget _buildLoginTextField(
+    BuildContext context,
+  ) {
     return MyTextFieldWidget(
       onChanged: (value) {
         context.read<ValidationBloc>().add(
-              ValidationLogin(login: value),
+              ValidationLogin(
+                login: value,
+              ),
             );
       },
       hintText: t.createLogin,
       controller: login,
       obscure: false,
-      // validator: (value) {
-      //   if (RegExp('[a-zA-Z]').hasMatch(login.text)) {
-      //     return null;
-      //   } else if (login.text.isEmpty) {
-      //     return t.necessaryField;
-      //   } else {
-      //     return t.badSymbols;
-      //   }
-      // },
     );
   }
 
-  MyTextFieldWidget _buildEmailTextField(BuildContext context) {
+  MyTextFieldWidget _buildEmailTextField(
+    BuildContext context,
+  ) {
     return MyTextFieldWidget(
       onChanged: (value) {
         context.read<ValidationBloc>().add(
@@ -162,15 +178,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       hintText: t.inputEmail,
       controller: email,
       obscure: false,
-      // validator: (value) {
-      //   if (value!.contains('@') && value.contains('.')) {
-      //     return null;
-      //   } else if (value.isEmpty) {
-      //     return t.necessaryField;
-      //   } else {
-      //     return t.notCorrectEmail;
-      //   }
-      // },
     );
   }
 }

@@ -1,8 +1,3 @@
-abstract class UseCase<CharacterEntity, Params> {
-  Future<CharacterEntity> call(
-    String? name,
-    String? status,
-    String? gender,
-    int? page,
-  );
+abstract class UseCase<Type, Params> {
+  Future<Type> call(Params params);
 }

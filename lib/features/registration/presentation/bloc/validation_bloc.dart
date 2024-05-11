@@ -1,22 +1,39 @@
 import 'package:bloc/bloc.dart';
-import 'package:neobis_flutter_auth/core/app/utils/validation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:neobis_flutter_auth/core/app/io_ui.dart';
+import 'package:neobis_flutter_auth/features/registration/data/models/registration_model/registration_model.dart';
+import 'package:neobis_flutter_auth/features/registration/domain/useCase/registration_use_case.dart';
 
 part 'validation_event.dart';
 part 'validation_state.dart';
 
+@singleton
 class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with PasswordValidation {
-  ValidationBloc() : super(ValidationState(ValidationModel.initial())) {
+  final RegistrationUseCase registrationUseCase;
+
+  ValidationBloc({required this.registrationUseCase})
+      : super(
+          ValidationState(
+            ValidationModel.initial(),
+          ),
+        ) {
     on<ValidationPassword>(_validationPassword);
     on<ValidationEmail>(_validationEmail);
     on<ValidationLogin>(_validationLogin);
     on<ValidationPasswordRepeat>(_validationPasswordRepeat);
-    on<CheckValidation>(_validationCheck);
+
+    on<RegistrationEvent>(_registration);
   }
 
-  void _validationCheck(
-    CheckValidation event,
+  Future<void> _registration(
+    RegistrationEvent event,
     Emitter<ValidationState> emit,
-  ) {}
+  ) async {
+    final registrationModel = event.registrationModel;
+    await registrationUseCase.call(
+      registrationModel,
+    );
+  }
 
   void _validationPasswordRepeat(
     ValidationPasswordRepeat event,
@@ -32,6 +49,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with Passwor
       ValidationState(
         state.validationModel.copyWith(
           passwordSimilar: similar,
+          passwordRepeat: password,
         ),
       ),
     );
@@ -48,6 +66,7 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with Passwor
       ValidationState(
         state.validationModel.copyWith(
           login: boolLogin,
+          loginString: login,
         ),
       ),
     );
@@ -58,10 +77,13 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with Passwor
     Emitter<ValidationState> emit,
   ) {
     final email = event.email;
-    final boolEmail = emailValidation(email);
+    final boolEmail = emailValidation(
+      email,
+    );
     emit(
       ValidationState(
         state.validationModel.copyWith(
+          emailString: email,
           email: boolEmail,
         ),
       ),
@@ -73,10 +95,18 @@ class ValidationBloc extends Bloc<ValidationEvent, ValidationState> with Passwor
     Emitter<ValidationState> emit,
   ) {
     final password = event.password;
-    final specChar = hasSpecialChar(password);
-    final lenght = isValidLength(password);
-    final number = hasDigit(password);
-    final upperCase = hasAlphabetic(password);
+    final specChar = hasSpecialChar(
+      password,
+    );
+    final lenght = isValidLength(
+      password,
+    );
+    final number = hasDigit(
+      password,
+    );
+    final upperCase = hasAlphabetic(
+      password,
+    );
     emit(
       ValidationState(
         state.validationModel.copyWith(

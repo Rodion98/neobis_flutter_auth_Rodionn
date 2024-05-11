@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AuthorizationScreen(),
       );
     },
+    ConfirmationRoute.name: (routeData) {
+      final args = routeData.argsAs<ConfirmationRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ConfirmationScreen(
+          email: args.email,
+          registrationModel: args.registrationModel,
+        ),
+      );
+    },
     MainRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -48,6 +58,43 @@ class AuthorizationRoute extends PageRouteInfo<void> {
   static const String name = 'AuthorizationRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ConfirmationScreen]
+class ConfirmationRoute extends PageRouteInfo<ConfirmationRouteArgs> {
+  ConfirmationRoute({
+    required String email,
+    required RegistrationModel registrationModel,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ConfirmationRoute.name,
+          args: ConfirmationRouteArgs(
+            email: email,
+            registrationModel: registrationModel,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ConfirmationRoute';
+
+  static const PageInfo<ConfirmationRouteArgs> page = PageInfo<ConfirmationRouteArgs>(name);
+}
+
+class ConfirmationRouteArgs {
+  const ConfirmationRouteArgs({
+    required this.email,
+    required this.registrationModel,
+  });
+
+  final String email;
+
+  final RegistrationModel registrationModel;
+
+  @override
+  String toString() {
+    return 'ConfirmationRouteArgs{email: $email, registrationModel: $registrationModel}';
+  }
 }
 
 /// generated route for

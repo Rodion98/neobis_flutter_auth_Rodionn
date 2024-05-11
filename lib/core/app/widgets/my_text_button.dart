@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:neobis_flutter_auth/core/app/io_ui.dart';
+part of io_ui;
 
 class MyTextButtonWidget extends StatefulWidget {
   final String text;
@@ -15,10 +14,19 @@ class _MyTextButtonWidgetState extends State<MyTextButtonWidget> {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: widget.onTap,
-      style: ButtonStyle(minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width, 50))),
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(
+          Size(
+            MediaQuery.of(context).size.width,
+            50,
+          ),
+        ),
+      ),
       child: Text(
         widget.text,
-        style: AppTextStyle.mplus1p16.copyWith(color: AppColors.buttonColorDark),
+        style: AppTextStyle.mplus1p16.copyWith(
+          color: AppColors.buttonColorDark,
+        ),
       ),
     );
   }

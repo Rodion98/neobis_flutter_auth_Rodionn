@@ -1,15 +1,14 @@
 // import 'package:dio/dio.dart';
 // import 'package:get_it/get_it.dart';
+// import 'package:neobis_flutter_auth/features/authorization/data/data_source/impl/login_data_source_impl.dart';
+// import 'package:neobis_flutter_auth/features/authorization/data/repository/login_repo.dart';
+// import 'package:neobis_flutter_auth/features/authorization/domain/useCase/login_use_case.dart';
+// import 'package:neobis_flutter_auth/features/authorization/presentation/bloc/authorization_bloc.dart';
+// import 'package:neobis_flutter_auth/features/registration/data/data_source/registration_data_source.dart';
+// import 'package:neobis_flutter_auth/features/registration/data/repository/registration_repo.dart';
+// import 'package:neobis_flutter_auth/features/registration/domain/useCase/registration_use_case.dart';
+// import 'package:neobis_flutter_auth/features/registration/presentation/bloc/validation_bloc.dart';
 
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/characters/data/data_source/retrofit.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/characters/data/mapper/results_,mapper.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/characters/data/repository/character_repo.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/characters/domain/useCase/character_use_case.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/characters/presentation/bloc/character_bloc.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/profile/data/mapper/episodes_mapper.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/profile/data/repository/episode_repository.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/profile/domain/useCase/episode_use_case.dart';
-// import 'package:neobis_flutter_rick_and_morty_rodion/features/profile/presentation/bloc/episode_bloc.dart';
 // import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 // final getIt = GetIt.instance;
@@ -17,7 +16,7 @@
 // Dio buildDioClient() {
 //   final dio = Dio();
 //   dio.interceptors.add(
-//     PrettyDioLogger(),
+//     PrettyDioLogger(requestBody: true, requestHeader: true, request: true),
 //   );
 //   return dio;
 // }
@@ -27,45 +26,47 @@
 //   getIt.registerSingleton<Dio>(
 //     Dio(),
 //   );
-//   getIt.registerSingleton<CharactersApi>(
-//     CharactersApi(dio),
+
+//   getIt.registerSingleton<RegistrationDataSource>(RegistrationDataSource(
+//     dio: dio,
+//   ));
+
+//   getIt.registerSingleton<LoginDataSource>(LoginDataSource(
+//     dio: dio,
+//   ));
+
+//   // getIt.registerSingleton<CharacterMapper>(
+//   //   CharacterMapper(),
+//   // );
+
+//   getIt.registerSingleton<RegistrationRepoImpl>(
+//     RegistrationRepoImpl(getIt<RegistrationDataSource>()),
 //   );
-//   getIt.registerSingleton<CharacterMapper>(
-//     CharacterMapper(),
+
+//   getIt.registerSingleton<LoginRepoImpl>(
+//     LoginRepoImpl(getIt<LoginDataSource>()),
 //   );
-//   getIt.registerSingleton<EpisodeMapper>(
-//     EpisodeMapper(),
-//   );
-//   getIt.registerSingleton<CharacterRepoImpl>(
-//     CharacterRepoImpl(
-//       api: getIt<CharactersApi>(),
-//       mapper: getIt<CharacterMapper>(),
+
+//   getIt.registerSingleton<RegistrationUseCase>(
+//     RegistrationUseCase(
+//       repo: getIt<RegistrationRepoImpl>(),
 //     ),
 //   );
-//   getIt.registerSingleton<EpisodeRepoImpl>(
-//     EpisodeRepoImpl(
-//       api: getIt<CharactersApi>(),
-//       mapper: getIt<EpisodeMapper>(),
+
+//   getIt.registerSingleton<LoginUseCase>(
+//     LoginUseCase(
+//       repo: getIt<LoginRepoImpl>(),
 //     ),
 //   );
-//   getIt.registerSingleton<CharacterUseCase>(
-//     CharacterUseCase(
-//       repo: getIt<CharacterRepoImpl>(),
+
+//   getIt.registerSingleton<ValidationBloc>(
+//     ValidationBloc(
+//       registrationUseCase: getIt<RegistrationUseCase>(),
 //     ),
 //   );
-//   getIt.registerSingleton<EpisodeUseCase>(
-//     EpisodeUseCase(
-//       repo: getIt<EpisodeRepoImpl>(),
-//     ),
-//   );
-//   getIt.registerSingleton<CharacterBloc>(
-//     CharacterBloc(
-//       characterUseCase: getIt<CharacterUseCase>(),
-//     ),
-//   );
-//   getIt.registerSingleton<EpisodeBloc>(
-//     EpisodeBloc(
-//       episodeUseCase: getIt<EpisodeUseCase>(),
+//   getIt.registerSingleton<AuthorizationBloc>(
+//     AuthorizationBloc(
+//       loginUseCase: getIt<LoginUseCase>(),
 //     ),
 //   );
 // }

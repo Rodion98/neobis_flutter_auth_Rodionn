@@ -23,8 +23,11 @@ class ValidationModel {
   final bool? upperCase;
   final String password;
   final bool passwordSimilar;
+  final String passwordRepeat;
   final bool email;
+  final String emailString;
   final bool login;
+  final String loginString;
 
   ValidationModel({
     required this.lenght,
@@ -33,8 +36,11 @@ class ValidationModel {
     required this.upperCase,
     required this.password,
     required this.passwordSimilar,
+    required this.passwordRepeat,
     required this.email,
+    required this.emailString,
     required this.login,
+    required this.loginString,
   });
 
   bool get allPasswordValid {
@@ -52,8 +58,11 @@ class ValidationModel {
         specChar: null,
         upperCase: null,
         password: '',
+        passwordRepeat: '',
         email: false,
+        emailString: '',
         login: false,
+        loginString: '',
         passwordSimilar: false);
   }
 
@@ -64,8 +73,11 @@ class ValidationModel {
     bool? upperCase,
     String? password,
     bool? passwordSimilar,
+    String? passwordRepeat,
     bool? email,
+    String? emailString,
     bool? login,
+    String? loginString,
   }) {
     return ValidationModel(
         lenght: lenght ?? this.lenght,
@@ -75,6 +87,9 @@ class ValidationModel {
         passwordSimilar: passwordSimilar ?? this.passwordSimilar,
         password: password ?? this.password,
         email: email ?? this.email,
-        login: login ?? this.login);
+        login: login ?? this.login,
+        emailString: emailString ?? this.emailString,
+        loginString: loginString ?? this.loginString,
+        passwordRepeat: passwordRepeat ?? this.passwordRepeat);
   }
 }
