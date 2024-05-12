@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
-import 'package:neobis_flutter_auth/core/app/router/router.dart';
+import 'package:neobis_flutter_auth/core/app/router/app_routes.dart';
 import 'package:neobis_flutter_auth/features/registration/data/models/registration_model/registration_model.dart';
 import 'package:neobis_flutter_auth/features/registration/presentation/bloc/validation_bloc.dart';
 import 'package:neobis_flutter_auth/gen/strings.g.dart';
@@ -17,7 +17,9 @@ class ResendEmailWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return TextButton(
       onPressed: () {
         context.read<ValidationBloc>().add(
@@ -36,7 +38,9 @@ class ResendEmailWidget extends StatelessWidget {
     );
   }
 
-  Future<String?> _buildShowDialog(BuildContext context) {
+  Future<String?> _buildShowDialog(
+    BuildContext context,
+  ) {
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(

@@ -10,7 +10,11 @@ import 'package:neobis_flutter_auth/gen/strings.g.dart';
 class ConfirmationScreen extends StatelessWidget {
   final String email;
   final RegistrationModel registrationModel;
-  const ConfirmationScreen({super.key, required this.email, required this.registrationModel});
+  const ConfirmationScreen({
+    super.key,
+    required this.email,
+    required this.registrationModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,9 @@ class ConfirmationScreen extends StatelessWidget {
       child: Scaffold(
         appBar: const AppBarWidget(),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppProps.kPageMargin),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppProps.kPageMargin,
+          ),
           child: SingleChildScrollView(
             child: Center(
               child: Column(

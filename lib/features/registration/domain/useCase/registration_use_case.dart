@@ -7,10 +7,14 @@ import 'package:neobis_flutter_auth/features/registration/domain/repository/repo
 class RegistrationUseCase extends UseCase<void, RegistrationModel> {
   final RegistrationRepo repo;
 
-  RegistrationUseCase({required this.repo});
+  RegistrationUseCase({
+    required this.repo,
+  });
 
   @override
-  Future<void> call(RegistrationModel? params) async {
+  Future<void> call(
+    RegistrationModel? params,
+  ) async {
     await repo.registration(params);
   }
 }

@@ -12,6 +12,7 @@ part 'widgets/my_app_bar.dart';
 part 'widgets/my_elevated_button.dart';
 part 'widgets/my_text_button.dart';
 part 'widgets/my_text_filed.dart';
+part 'widgets/app_snackbar.dart';
 
 /// Shared
 part 'shared/app_colors.dart';

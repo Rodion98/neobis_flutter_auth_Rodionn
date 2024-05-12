@@ -21,35 +21,4 @@ class RegistrationDataSourceImpl implements RegistrationDataSource {
       data: registrationModel!.toJson(),
     );
   }
-
-  // Future<void> registrationn(RegistrationModel? model) async {
-  //   // final json = {
-  //   //   "username": 'sdfdsfsdf',
-  //   //   "email": 'sdf@mai.com',
-  //   //   "password": "1452GHjf@",
-  //   //   "password_confirm": "1452GHjf@"
-  //   // };
-  //   try {
-  //     final response = await dio.post(
-  //       '${Constants.baseUrl}${Constants.registration}',
-  //       data: model!.toJson(),
-  //     );
-
-  //     if (response.statusCode == 201) {
-  //       print('Registration successful');
-  //     } else if (response.statusCode == 400) {
-  //       throw Exception(
-  //         'Bad request: ${response.data}',
-  //       );
-  //     } else {
-  //       throw Exception(
-  //         'Unexpected status code: ${response.statusCode}',
-  //       );
-  //     }
-  //   } catch (e) {
-  //     throw Exception(
-  //       'Failed to register: $e',
-  //     );
-  //   }
-  // }
 }

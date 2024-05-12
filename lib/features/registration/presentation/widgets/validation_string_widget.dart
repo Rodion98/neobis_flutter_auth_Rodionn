@@ -19,19 +19,33 @@ class ValidationStringWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildString(t.symbols, validationModel?.lenght),
-          _buildString(t.letter, validationModel?.upperCase),
-          _buildString(t.number, validationModel?.number),
-          _buildString(t.specSymbol, validationModel?.specChar)
+          _buildString(
+            t.symbols,
+            validationModel?.lenght,
+          ),
+          _buildString(
+            t.letter,
+            validationModel?.upperCase,
+          ),
+          _buildString(
+            t.number,
+            validationModel?.number,
+          ),
+          _buildString(
+            t.specSymbol,
+            validationModel?.specChar,
+          )
         ],
       ),
     );
   }
 
   Text _buildString(String text, bool? boolean) {
-    return Text(boolean == null ? text : (boolean == false ? '$text ❌' : '$text ✅'),
-        style: TextStyle(
-            color: boolean == null ? AppColors.greyMediumDark : (boolean == false ? AppColors.error : AppColors.green),
-            fontSize: 14.0));
+    return Text(
+      boolean == null ? text : (boolean == false ? '$text ❌' : '$text ✅'),
+      style: TextStyle(
+          color: boolean == null ? AppColors.greyMediumDark : (boolean == false ? AppColors.error : AppColors.green),
+          fontSize: 14.0),
+    );
   }
 }

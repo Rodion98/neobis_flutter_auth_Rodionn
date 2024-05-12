@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:neobis_flutter_auth/core/network/entity/auth_info.dart';
 import 'package:neobis_flutter_auth/core/services/secure_storage_service.dart';
 import 'package:neobis_flutter_auth/injection/injection.dart';
 
+@singleton
 class AuthService {
   AuthData? _cachedUser;
   String? _cachedAppleID;
@@ -22,10 +24,7 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    // Clear secure storage
     await getIt<SecureStorageService>().wipeStorage();
-
-    // Clear local cached user
     _cachedUser = null;
   }
 }

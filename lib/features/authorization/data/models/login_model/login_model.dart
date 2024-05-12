@@ -10,5 +10,8 @@ class LoginModel with _$LoginModel {
     required String password,
   }) = _LoginModel;
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
+  factory LoginModel.fromJson(
+    Map<String, dynamic> json,
+  ) =>
+      _$LoginModelFromJson(json);
 }

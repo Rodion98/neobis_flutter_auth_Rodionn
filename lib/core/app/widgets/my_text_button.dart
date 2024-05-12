@@ -3,7 +3,11 @@ part of io_ui;
 class MyTextButtonWidget extends StatefulWidget {
   final String text;
   final VoidCallback onTap;
-  const MyTextButtonWidget({super.key, required this.onTap, required this.text});
+  const MyTextButtonWidget({
+    super.key,
+    required this.onTap,
+    required this.text,
+  });
 
   @override
   State<MyTextButtonWidget> createState() => _MyTextButtonWidgetState();

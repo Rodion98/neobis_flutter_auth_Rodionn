@@ -7,12 +7,21 @@ class AppTextStyle {
       fontFamily: FontFamily.mplus1p,
       fontWeight: FontWeight.w500,
       height: 1.66);
+
   static const mplus1p16 = TextStyle(
       fontSize: 16,
       color: AppColors.greyMediumDark,
       fontFamily: FontFamily.mplus1p,
       fontWeight: FontWeight.w500,
       height: 1.5);
+
+  static const mplus1p16red = TextStyle(
+    fontSize: 16,
+    color: AppColors.error,
+    fontFamily: FontFamily.mplus1p,
+    fontWeight: FontWeight.w500,
+    height: 1.5,
+  );
 
   static const mplus1p16Button = TextStyle(
     color: AppColors.white,
@@ -27,6 +36,7 @@ class AppTextStyle {
       fontFamily: FontFamily.mplus1p,
       fontWeight: FontWeight.w400,
       height: 1.4);
+
   static const mplus1p24 = TextStyle(
       fontSize: 24,
       color: AppColors.greyExtraDark,

@@ -12,7 +12,9 @@ class RegistrationRepoImpl implements RegistrationRepo {
   );
 
   @override
-  Future<void> registration(RegistrationModel? registrationModel) async {
+  Future<void> registration(
+    RegistrationModel? registrationModel,
+  ) async {
     await _dataSource.registration(registrationModel: registrationModel);
   }
 }

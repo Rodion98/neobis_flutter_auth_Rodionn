@@ -7,7 +7,7 @@
 // ignore_for_file: type=lint
 // coverage:ignore-file
 
-part of 'router.dart';
+part of 'app_routes.dart';
 
 abstract class _$AppRouter extends RootStackRouter {
   // ignore: unused_element
@@ -78,7 +78,8 @@ class ConfirmationRoute extends PageRouteInfo<ConfirmationRouteArgs> {
 
   static const String name = 'ConfirmationRoute';
 
-  static const PageInfo<ConfirmationRouteArgs> page = PageInfo<ConfirmationRouteArgs>(name);
+  static const PageInfo<ConfirmationRouteArgs> page =
+      PageInfo<ConfirmationRouteArgs>(name);
 }
 
 class ConfirmationRouteArgs {

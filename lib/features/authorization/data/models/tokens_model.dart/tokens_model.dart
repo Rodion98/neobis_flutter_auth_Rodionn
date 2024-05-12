@@ -10,5 +10,8 @@ class TokensModel with _$TokensModel {
     required String refresh,
   }) = _TokensModel;
 
-  factory TokensModel.fromJson(Map<String, dynamic> json) => _$TokensModelFromJson(json);
+  factory TokensModel.fromJson(
+    Map<String, dynamic> json,
+  ) =>
+      _$TokensModelFromJson(json);
 }

@@ -1,8 +1,10 @@
 import 'dart:convert' as convert;
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 import 'package:neobis_flutter_auth/core/network/entity/auth_info.dart';
 
+@singleton
 class SecureStorageService {
   static const _ssKey = 'SS_KEY';
 
@@ -15,11 +17,18 @@ class SecureStorageService {
 
     if (value == null || value.isEmpty) return null;
 
-    return AuthData.fromJson(convert.jsonDecode(value));
+    return AuthData.fromJson(
+      convert.jsonDecode(value),
+    );
   }
 
   Future<void> setUser(AuthData user) async {
-    await _secureStorage.write(key: _ssKey, value: convert.jsonEncode(user.toJson()));
+    await _secureStorage.write(
+      key: _ssKey,
+      value: convert.jsonEncode(
+        user.toJson(),
+      ),
+    );
   }
 
   Future<void> wipeStorage() async {

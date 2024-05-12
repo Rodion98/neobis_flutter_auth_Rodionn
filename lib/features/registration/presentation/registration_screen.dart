@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:neobis_flutter_auth/core/app/io_ui.dart';
-import 'package:neobis_flutter_auth/core/app/router/router.dart';
+import 'package:neobis_flutter_auth/core/app/router/app_routes.dart';
 import 'package:neobis_flutter_auth/features/registration/data/models/registration_model/registration_model.dart';
 import 'package:neobis_flutter_auth/features/registration/presentation/bloc/validation_bloc.dart';
 import 'package:neobis_flutter_auth/features/registration/presentation/widgets/password_validation_widget.dart';
