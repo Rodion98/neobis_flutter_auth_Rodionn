@@ -14,7 +14,7 @@ mixin class PasswordValidation {
   }
 
   bool hasSpecialChar(String password) {
-    return password.contains(RegExp(r'[!@#$%^&*(),.+-?":{}|+-<>[/]~`_]'));
+    return password.contains(RegExp(r'[!@#$%^&*(),.+-?":{}|+-<>[/]=~`_]'));
   }
 
   bool emailValidation(String email) {
